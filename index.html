@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Chat IA</title>
+   <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+
+   <main class="app">
+       <header class="header">
+           <div>
+               <h1>Chat IA</h1>
+               <p>Inteligencia Artificial aplicada a las TIC</p>
+           </div>
+           <span class="status">● IA disponible</span>
+       </header>
+
+       <section id="messages" class="messages" aria-live="polite">
+           <div class="message assistant">
+               <div class="message-label">IA</div>
+               <div class="message-content">
+                   Hola. Soy tu asistente de Inteligencia Artificial.
+                   ¿En qué puedo ayudarte?
+               </div>
+           </div>
+       </section>
+
+       <form id="chatForm" class="chat-form">
+           <input
+               id="messageInput"
+               type="text"
+               maxlength="1000"
+               placeholder="Escribe una pregunta..."
+               autocomplete="off"
+               required
+           >
+           <button id="sendButton" type="submit">Enviar</button>
+       </form>
+   </main>
+
+   <script src="assets/js/app.js"></script>
+</body>
+</html>
