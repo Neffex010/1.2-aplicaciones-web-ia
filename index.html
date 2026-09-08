@@ -1,48 +1,74 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-   <meta charset="UTF-8">
-   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>Chat IA</title>
-   <link rel="stylesheet" href="assets/css/styles.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat IA | Ciberseguridad</title>
+    <!-- Cargando Bootstrap 5.0 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/styles.css">
 </head>
-<body>
+<!-- Las clases vh-100 y overflow-hidden bloquean el scroll vertical en la página completa -->
+<body class="bg-light d-flex flex-column vh-100 overflow-hidden">
 
-   <main class="app">
-       <header class="header">
-           <div>
-               <h1>Chat IA</h1>
-               <p>Inteligencia Artificial aplicada a las TIC</p>
-           </div>
-           <span class="status">● IA disponible</span>
-           <button id="resetButton" class="reset-btn">Nueva conversación</button>
-       </header>
-
-       <section id="messages" class="messages" aria-live="polite">
-           <div class="message assistant">
-               <div class="message-label">IA</div>
-               <div class="message-content">
-                Hola. Soy tu asistente educativo especializado en Ciberseguridad. ¿En qué puedo ayudarte?
-               </div>
-           </div>
-       </section>
-
-       <form id="chatForm" class="chat-form">
-            <div style="flex: 1; display: flex; flex-direction: column;">
-                <input
-                    id="messageInput"
-                    type="text"
-                    maxlength="1000"
-                    placeholder="Escribe una pregunta..."
-                    autocomplete="off"
-                    required
-                >
-                <div id="charCount" class="char-count">0 / 1000</div>
+    <!-- Encabezado Moderno -->
+    <header class="navbar navbar-dark bg-primary shadow-sm p-3">
+        <div class="container-md d-flex justify-content-between align-items-center">
+            <div class="text-white">
+                <h1 class="h4 mb-0 fw-bold">Chat IA</h1>
+                <small class="text-white-50">Inteligencia Artificial aplicada a las TIC</small>
             </div>
-            <button id="sendButton" type="submit">Enviar</button>
-        </form>
-   </main>
+            <div class="text-end d-flex flex-column align-items-end gap-2">
+                <span class="badge bg-success rounded-pill px-3 py-2">● IA disponible</span>
+                <button id="resetButton" class="btn btn-outline-light btn-sm fw-bold">Nueva conversación</button>
+            </div>
+        </div>
+    </header>
 
-   <script src="assets/js/app.js"></script>
+    <!-- Área Principal de la Aplicación -->
+    <main class="container-md flex-grow-1 d-flex flex-column my-3 overflow-hidden shadow bg-white rounded-3 p-0 border">
+        
+        <!-- Contenedor de Mensajes (ESTE es el único que hará scroll) -->
+        <section id="messages" class="p-4 flex-grow-1 overflow-auto bg-white messages" aria-live="polite">
+            <div class="message assistant">
+                <div class="message-label">IA</div>
+                <div class="message-content">
+                    Hola. Soy tu asistente educativo especializado en Ciberseguridad. ¿En qué puedo ayudarte?
+                </div>
+            </div>
+        </section>
+
+        <!-- Zona del Formulario y Contador -->
+        <div class="p-3 bg-light border-top">
+            <form id="chatForm" class="d-flex flex-column">
+                <div class="input-group input-group-lg mb-1">
+                    <input
+                        id="messageInput"
+                        type="text"
+                        class="form-control"
+                        maxlength="1000"
+                        placeholder="Escribe una pregunta..."
+                        autocomplete="off"
+                        required
+                    >
+                    <button id="sendButton" type="submit" class="btn btn-primary px-4 fw-bold">Enviar</button>
+                </div>
+                <div id="charCount" class="text-end text-muted small fw-bold">0 / 1000</div>
+            </form>
+        </div>
+    </main>
+
+    <!-- Footer con tus datos -->
+    <footer class="bg-dark text-white text-center py-3 mt-auto">
+        <div class="container-md">
+            <small class="mb-0">
+                Desarrollado por: <strong>FerTello29</strong> | Práctica 1.2 Aplicaciones Web IA <br>
+                <span class="text-muted">© 2026 Todos los derechos reservados.</span>
+            </small>
+        </div>
+    </footer>
+
+    <!-- Tu código funcional -->
+    <script src="assets/js/app.js"></script>
 </body>
 </html>
