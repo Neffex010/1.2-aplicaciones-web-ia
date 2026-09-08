@@ -142,20 +142,20 @@ class handler(BaseHTTPRequestHandler):
            )
 
            response = client.responses.create(
-               model="gpt-5.6-luna",
-               instructions="""
-               Eres un asistente educativo especializado
-               en Tecnologías de Información y Comunicaciones.
-               Responde siempre en español, de manera clara,
-               breve y didáctica. Incluye ejemplos cuando ayuden
-               a comprender el concepto.
-               """,
-               input=message,
-               reasoning={
-                   "effort": "none"
-               },
-               max_output_tokens=500
-           )
+                model="gpt-5.6-luna",
+                instructions="""
+                Eres un asistente educativo especializado en Ciberseguridad y Seguridad de la Información.
+                Tu objetivo es explicar conceptos sobre protección de datos, criptografía, 
+                análisis de vulnerabilidades y buenas prácticas de seguridad en la web.
+                Responde siempre en español, de manera clara, breve y didáctica. 
+                Incluye ejemplos cuando ayuden a comprender el concepto.
+                """,
+                input=message,
+                reasoning={
+                    "effort": "none"
+                },
+                max_output_tokens=500
+            )
 
            self.send_json(
                200,
