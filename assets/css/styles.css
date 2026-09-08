@@ -136,3 +136,10 @@ body {
        max-width: 90%;
    }
 }
+.char-count {
+    font-size: 12px;
+    color: #6b7280;
+    text-align: right;
+    margin-top: 6px;
+    padding-right: 4px;
+}

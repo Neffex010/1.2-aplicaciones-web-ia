@@ -1,10 +1,10 @@
-const API_URL =
-   "https://1-2-aplicaciones-web-ia-omega.vercel.app/api/chat";
+const API_URL = "https://1-2-aplicaciones-web-ia-omega.vercel.app/api/chat";
 
 const form = document.getElementById("chatForm");
 const input = document.getElementById("messageInput");
 const messages = document.getElementById("messages");
 const sendButton = document.getElementById("sendButton");
+const charCount = document.getElementById("charCount"); // Captura el elemento del contador
 
 function addMessage(text, type) {
    const container = document.createElement("div");
@@ -39,6 +39,7 @@ form.addEventListener("submit", async (event) => {
    addMessage(message, "user");
 
    input.value = "";
+   charCount.textContent = "0 / 1000"; // Reinicia el contador al enviar el mensaje
    input.disabled = true;
    sendButton.disabled = true;
 
@@ -80,4 +81,10 @@ form.addEventListener("submit", async (event) => {
        sendButton.disabled = false;
        input.focus();
    }
+});
+
+// Actualiza el contador en vivo mientras el usuario escribe
+input.addEventListener("input", () => {
+    const currentLength = input.value.length;
+    charCount.textContent = `${currentLength} / 1000`;
 });
