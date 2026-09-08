@@ -4,7 +4,8 @@ const form = document.getElementById("chatForm");
 const input = document.getElementById("messageInput");
 const messages = document.getElementById("messages");
 const sendButton = document.getElementById("sendButton");
-const charCount = document.getElementById("charCount"); // Captura el elemento del contador
+const charCount = document.getElementById("charCount"); 
+const resetButton = document.getElementById("resetButton");
 
 function addMessage(text, type) {
    const container = document.createElement("div");
@@ -87,4 +88,19 @@ form.addEventListener("submit", async (event) => {
 input.addEventListener("input", () => {
     const currentLength = input.value.length;
     charCount.textContent = `${currentLength} / 1000`;
+});
+
+// Reto 3: Botón para limpiar la conversación
+resetButton.addEventListener("click", () => {
+    messages.innerHTML = `
+        <div class="message assistant">
+            <div class="message-label">IA</div>
+            <div class="message-content">
+                Hola. Soy tu asistente educativo especializado en Ciberseguridad. ¿En qué puedo ayudarte?
+            </div>
+        </div>
+    `;
+    input.value = "";
+    charCount.textContent = "0 / 1000";
+    input.focus();
 });

@@ -143,3 +143,17 @@ body {
     margin-top: 6px;
     padding-right: 4px;
 }
+.reset-btn {
+    background: #e5e7eb;
+    color: #374151;
+    border: none;
+    border-radius: 6px;
+    padding: 6px 12px;
+    font-size: 12px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.reset-btn:hover {
+    background: #d1d5db;
+}
