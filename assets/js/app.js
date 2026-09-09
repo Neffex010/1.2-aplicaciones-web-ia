@@ -73,10 +73,22 @@ form.addEventListener("submit", async (event) => {
 
         loading.remove();
 
-        if (!response.ok) {
-            throw new Error(data.error || "Error del servidor");
-        }
+       if (!response.ok) {
+            // Reto 5: Manejo de errores personalizado según el código HTTP
+            let mensajeError = "Error del servidor";
+            
+            if (response.status === 400) {
+                mensajeError = "Error 400: El mensaje enviado está vacío o es inválido.";
+            } else if (response.status === 403) {
+                mensajeError = "Error 403: Acceso denegado (Verifica la API Key o los permisos).";
+            } else if (response.status === 413) {
+                mensajeError = "Error 413: El mensaje es demasiado largo.";
+            } else if (response.status === 500) {
+                mensajeError = "Error 500: Fallo interno en el servidor o en la IA.";
+            }
 
+            throw new Error(mensajeError);
+        }
         addMessage(data.reply, "assistant");
         
         // 4. NUEVO: Guardamos la respuesta de la IA para que la recuerde la próxima vez
