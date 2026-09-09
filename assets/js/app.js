@@ -7,6 +7,9 @@ const sendButton = document.getElementById("sendButton");
 const charCount = document.getElementById("charCount"); 
 const resetButton = document.getElementById("resetButton");
 
+// 1. NUEVO: Creamos un arreglo vacío para guardar la memoria del chat
+let conversationHistory = [];
+
 function addMessage(text, type) {
     const container = document.createElement("div");
     container.classList.add("message", type);
@@ -18,11 +21,9 @@ function addMessage(text, type) {
     const content = document.createElement("div");
     content.classList.add("message-content");
     
-    // Mejoras visuales: Procesar Markdown si el mensaje es de la IA
     if (type === "assistant" && typeof marked !== 'undefined') {
         content.innerHTML = marked.parse(text);
     } else {
-        // Si es el usuario o está cargando, lo mantenemos como texto normal
         content.textContent = text;
     }
 
@@ -46,8 +47,11 @@ form.addEventListener("submit", async (event) => {
 
     addMessage(message, "user");
 
+    // 2. NUEVO: Guardamos el mensaje del usuario en el historial
+    conversationHistory.push({ role: "user", content: message });
+
     input.value = "";
-    charCount.textContent = "0 / 1000"; // Reinicia el contador al enviar el mensaje
+    charCount.textContent = "0 / 1000"; 
     input.disabled = true;
     sendButton.disabled = true;
 
@@ -59,8 +63,9 @@ form.addEventListener("submit", async (event) => {
             headers: {
                 "Content-Type": "application/json"
             },
+            // 3. MODIFICADO: Enviamos todo el arreglo 'messages' al backend
             body: JSON.stringify({
-                message: message
+                messages: conversationHistory
             })
         });
 
@@ -69,20 +74,19 @@ form.addEventListener("submit", async (event) => {
         loading.remove();
 
         if (!response.ok) {
-            throw new Error(
-                data.error || "Error del servidor"
-            );
+            throw new Error(data.error || "Error del servidor");
         }
 
         addMessage(data.reply, "assistant");
+        
+        // 4. NUEVO: Guardamos la respuesta de la IA para que la recuerde la próxima vez
+        conversationHistory.push({ role: "assistant", content: data.reply });
     }
     catch (error) {
         loading.remove();
-
-        addMessage(
-            "Error: " + error.message,
-            "assistant"
-        );
+        addMessage("Error: " + error.message, "assistant");
+        // Si hay un error, borramos el último intento del usuario para no corromper el historial
+        conversationHistory.pop();
     }
     finally {
         input.disabled = false;
@@ -91,13 +95,11 @@ form.addEventListener("submit", async (event) => {
     }
 });
 
-// Actualiza el contador en vivo mientras el usuario escribe
 input.addEventListener("input", () => {
     const currentLength = input.value.length;
     charCount.textContent = `${currentLength} / 1000`;
 });
 
-// Reto 3: Botón para limpiar la conversación
 resetButton.addEventListener("click", () => {
     messages.innerHTML = `
         <div class="message assistant">
@@ -110,4 +112,7 @@ resetButton.addEventListener("click", () => {
     input.value = "";
     charCount.textContent = "0 / 1000";
     input.focus();
+    
+    // 5. NUEVO: Vaciamos la memoria cuando se inicia una Nueva Conversación
+    conversationHistory = [];
 });
